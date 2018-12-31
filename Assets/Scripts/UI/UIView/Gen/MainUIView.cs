@@ -10,4 +10,5 @@ public partial class MainUIView : UIViewBase<MainUIController>
     {
         _toBattleButton = UITool.GetUIComponent<Button>(_rootUI, "ToBattleButton");
     }
+
 }

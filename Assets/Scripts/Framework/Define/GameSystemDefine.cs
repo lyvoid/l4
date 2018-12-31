@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GameSystem
+﻿namespace GameSystem
 {
     public static class GameSystemConst
     {
@@ -8,13 +6,5 @@ namespace GameSystem
         public const string LoadingSceneName = "loading";
         public const string LoadingSceneRootName = "LoadingRoot";
 
-        public static Dictionary<ResType, string> ResPath = new Dictionary<ResType, string>{
-            {ResType.UIPrefab, "UIPrefab/"},
-        };
-    }
-
-    public enum ResType
-    {
-        UIPrefab,
     }
 }

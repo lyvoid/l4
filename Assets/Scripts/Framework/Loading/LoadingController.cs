@@ -1,7 +1,6 @@
 ﻿using GameSystem;
 using UnityEngine;
 using UnityEngine.UI;
-using GameTools;
 
 public class LoadingController : MonoBehaviour {
 

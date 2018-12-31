@@ -2,13 +2,13 @@
 
 namespace GameTools
 {
-    static class UITool
+    public static class UITool
     {
         private static GameObject _canvas = null;
 
         public static GameObject FindUIGameObject(string UIName)
         {
-            _GetCanvas();
+            GetCanvas();
             return UnityTool.FindChildGameObject(_canvas, UIName);
         }
 
@@ -31,21 +31,24 @@ namespace GameTools
 
         public static void AddToCanvas(GameObject UI)
         {
-            _GetCanvas();
+            GetCanvas();
             UI.transform.SetParent(_canvas.transform);
             RectTransform rectTransform = UI.GetComponent<RectTransform>();
             rectTransform.offsetMin = new Vector2(0, 0);
             rectTransform.offsetMax = new Vector2(0, 0);
         }
 
-        private static void _GetCanvas()
+        public static GameObject GetCanvas()
         {
             if (_canvas == null)
+            {
                 _canvas = UnityTool.FindGameObject("Canvas");
+            }
             if (_canvas == null)
             {
                 Debug.LogError("can not find canvas in current scene");
             }
+            return _canvas;
         }
     }
 }

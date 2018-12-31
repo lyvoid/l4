@@ -84,7 +84,7 @@ namespace GameSystem
         }
 
         private string _GetResComplName(string resName, ResType resType) {
-            return GameSystemConst.ResPath[resType] + resName;
+            return ResSystemDefine.ResPath[resType] + resName;
         }
 
         public override void AfterSceneDestoryed()
