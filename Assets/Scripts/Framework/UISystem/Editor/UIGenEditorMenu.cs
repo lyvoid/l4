@@ -16,7 +16,7 @@ public static class UIGenEditorMenu
         "Button" 
     };
 
-    [MenuItem("GameUI/Generate Code")]
+    [MenuItem("Tools/UI/Generate Code")]
     public static void GenerateCode()
     {
         GameObject canvas = UITool.GetCanvas();

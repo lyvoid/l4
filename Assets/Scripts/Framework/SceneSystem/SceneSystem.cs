@@ -34,7 +34,7 @@ namespace GameSystem
         public void ChangeToScene(IScene newScene)
         {
             GameRoot.Ins.BeforeSceneDestoryed();
-            SceneManager.LoadScene(GameSystemConst.LoadingSceneName);
+            SceneManager.LoadScene(GameSystemConstDefine.LoadingSceneName);
             _curScene.Release();
             GameRoot.Ins.AfterSceneDestoryed();
             _curScene = newScene;
@@ -54,7 +54,7 @@ namespace GameSystem
             GameRoot.Ins.AfterSceneLoaded();
             AsyncOp = null;
             // destory loading scene
-            GameObject loadingRoot = UnityTool.FindGameObject(GameSystemConst.LoadingSceneRootName);
+            GameObject loadingRoot = UnityTool.FindGameObject(GameSystemConstDefine.LoadingSceneRootName);
             Object.Destroy(loadingRoot);
         }
     }

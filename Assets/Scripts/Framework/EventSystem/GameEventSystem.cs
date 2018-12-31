@@ -14,7 +14,7 @@ namespace GameSystem
         {
             if (!_listeners.ContainsKey(eventName))
             {
-                _listeners[eventName] = new List<Action<GameEvent>>(GameSystemConst.InitialEventSystemListnerListSize);
+                _listeners[eventName] = new List<Action<GameEvent>>(GameSystemConstDefine.InitialEventSystemListnerListSize);
             }
             _listeners[eventName].Add(listener);
         }
@@ -96,7 +96,7 @@ namespace GameSystem
             if (!_onceListeners.ContainsKey(eventName))
             {
                 _onceListeners[eventName] = new List<Action<GameEvent>>(
-                    GameSystemConst.InitialEventSystemListnerListSize);
+                    GameSystemConstDefine.InitialEventSystemListnerListSize);
             }
             _onceListeners[eventName].Add(listener);
         }
