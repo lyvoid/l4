@@ -1,9 +1,19 @@
-﻿using System;
-namespace Application
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+namespace GameSystem
 {
-    public class NewClass
+    public abstract class UIControllerBase : IUIController
     {
-        public NewClass()
+        public virtual void Initialize()
+        {
+        }
+
+        public virtual void Release()
+        {
+        }
+
+        public virtual void Update()
         {
         }
     }

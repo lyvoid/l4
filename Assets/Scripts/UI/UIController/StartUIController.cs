@@ -1,7 +1,9 @@
 ﻿using GameSystem;
-using GameTools;
-using UnityEngine.UI;
 
-public partial class StartUIController : UIControllerBase
+public class StartUIController : UIControllerBase
 {
+    public void ToMainScene()
+    {
+        SceneSystem.Ins.ChangeToScene(new MainScene());
+    }
 }

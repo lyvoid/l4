@@ -2,12 +2,15 @@
 using UnityEngine.UI;
 using GameTools;
 
-public partial class StartUIView : UIViewBase
+public partial class StartUIView : UIViewBase<StartUIController>
 {
-    public override void InitializeUIEvt()
+    public override void UIEventInitialize()
     {
-        _button.onClick.AddListener(() => {
-            SceneSystem.Ins.ChangeToScene(new MainScene());
-        });
+        _button.onClick.AddListener(_controller.ToMainScene);
+    }
+
+    public override void CustomRelease()
+    {
+        _button.onClick.RemoveAllListeners();
     }
 }

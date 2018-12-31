@@ -1,10 +1,9 @@
-﻿using System;
-namespace Application
+﻿using GameSystem;
+
+public class BattleScene : SceneBase
 {
-    public class NewClass
+    public BattleScene() : base(SceneNames.BattleSceneName)
     {
-        public NewClass()
-        {
-        }
     }
+
 }

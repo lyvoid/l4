@@ -3,26 +3,32 @@ using GameTools;
 
 namespace GameSystem
 {
-    public abstract class UIBase : IUI
+    public abstract class UIBase<T, V> : IUI where T : IUIView, new() where V : IUIController, new()
     {
         protected bool _isActive = true;
-        protected GameObject _rootUI = null;
+        protected T _view;
+        protected V _controller;
 
-        protected UIBase(string UIName) {
+        protected UIBase(string UIName)
+        {
             ResSystem.Ins.LoadRes(UIName, ResType.UIPrefab);
-            _rootUI = Object.Instantiate(ResSystem.Ins.GetPrefab(UIName));
-            UITool.AddToCanvas(_rootUI);
+            GameObject rootUI = Object.Instantiate(ResSystem.Ins.GetPrefab(UIName));
+            _view = new T();
+            _controller = new V();
+            _view.SetRootUI(rootUI);
+            _view.SetController(_controller);
+            UITool.AddToCanvas(rootUI);
         }
 
-        public virtual void Hide()
+        public void Hide()
         {
-            _rootUI.SetActive(false);
+            _view.OnHide();
             _isActive = false;
         }
 
-        public virtual void Show()
+        public void Show()
         {
-            _rootUI.SetActive(true);
+            _view.OnShow();
             _isActive = true;
         }
 
@@ -31,10 +37,61 @@ namespace GameSystem
             return _isActive;
         }
 
+        public virtual void CustomUpdate()
+        {
+        }
 
-        public virtual void Update() { }
-        public virtual void Initialize() { }
-        public virtual void Release() { }
+        private void BaseUpdate() 
+        {
+            _controller.Update();
+            _view.Update(); 
+        }
 
+        public void Update()
+        {
+            BaseUpdate();
+            CustomUpdate();
+        }
+
+        public virtual void CustomInitialize()
+        {
+
+        }
+
+        private void BaseInitialize() 
+        {
+            _controller.Initialize();
+            _view.Initialize();
+        }
+
+        public void Initialize()
+        {
+            BaseInitialize();
+            CustomInitialize();
+        }
+
+        public virtual void CustomRelease()
+        {
+        }
+
+        private void BaseRelease()
+        {
+            if (_controller != default) 
+            {
+                _controller.Release();
+                this._controller = default;
+            }
+            if (_view != default)
+            {
+                _view.Release();
+                this._view = default;
+            }
+        }
+
+        public void Release()
+        {
+            CustomRelease();
+            BaseRelease();
+        }
     }
 }

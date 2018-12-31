@@ -50,7 +50,7 @@ namespace GameSystem
             // load to current scene use additive mode
             AsyncOp = SceneManager.LoadSceneAsync(_curScene.SceneName(), LoadSceneMode.Additive);
             yield return AsyncOp;
-            // _curScene.Initialize();
+            _curScene.Initialize();
             GameRoot.Ins.AfterSceneLoaded();
             AsyncOp = null;
             // destory loading scene

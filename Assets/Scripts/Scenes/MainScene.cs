@@ -1,9 +1,8 @@
-﻿using System;
-using GameSystem;
+﻿using GameSystem;
 
 public class MainScene : SceneBase
 {
-    public MainScene() : base(SceneNames.Main)
+    public MainScene() : base(SceneNames.MainSceneName)
     {
     }
 

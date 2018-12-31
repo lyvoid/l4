@@ -1,17 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class NewMonoBehaviour : MonoBehaviour
+﻿namespace GameSystem
 {
-    // Use this for initialization
-    void Start()
+    public interface IUIController
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        void Initialize();
+        void Release();
+        void Update();
     }
 }

@@ -1,10 +1,15 @@
-﻿using System;
-namespace Application
+﻿using UnityEngine;
+
+namespace GameSystem
 {
-    public class NewClass
+    public interface IUIView
     {
-        public NewClass()
-        {
-        }
+        void SetRootUI(GameObject rootUI);
+        void SetController(IUIController controller);
+        void Initialize();
+        void Update();
+        void Release();
+        void OnShow();
+        void OnHide();
     }
 }
