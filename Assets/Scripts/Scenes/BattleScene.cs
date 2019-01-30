@@ -6,4 +6,9 @@ public class BattleScene : SceneBase
     {
     }
 
+    public override void Initialize()
+    {
+        UISystem.Ins.NewUI<BattlePanelUI>();
+    }
+
 }

@@ -169,6 +169,11 @@ public partial class {0}View : UIViewBase<{0}Controller>
     private static void _WriteControllerClass(string panelName)
     {
         string controllerClassPath = UISystemDefine.UIControllerPath + panelName + "Controller.cs";
+        if (File.Exists(controllerClassPath))
+        {
+            Debug.Log(string.Format("{0} already exist.", controllerClassPath));
+            return;
+        }
         string content = string.Format(@"using GameSystem;
 
 public class {0}Controller : UIControllerBase
@@ -189,9 +194,10 @@ public class {0}Controller : UIControllerBase
             Debug.Log(string.Format("{0} was already defined in {1}", panelName, UISystemDefine.UIPrefNamesDefPath));
             return;
         }
+        defineContent = defineContent.Replace("{", "");
         defineContent = defineContent.Replace(
-            "public static class UIPrefabNames\n{",
-            string.Format("public static class UIPrefabNames\n{{\n    " + defineLineHead + "\"{0}\";", panelName)
+            "public static class UIPrefabNames",
+            "public static class UIPrefabNames {\n    " + defineLineHead + "\"" + panelName + "\";"
         );
         File.WriteAllText(UISystemDefine.UIPrefNamesDefPath, defineContent);
         Debug.Log(string.Format("Adding {0} to define file successfully.", panelName));

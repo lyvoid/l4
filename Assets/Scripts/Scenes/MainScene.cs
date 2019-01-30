@@ -8,7 +8,7 @@ public class MainScene : SceneBase
 
     public override void Initialize()
     {
-        UISystem.Ins.NewUI<MainUI>();
+        UISystem.Ins.NewUI<MainUIPanelUI>();
     }
     
 }

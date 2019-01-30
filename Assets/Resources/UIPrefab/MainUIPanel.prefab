@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2966981175427178052}
   - component: {fileID: 1813956672257564482}
   m_Layer: 5
-  m_Name: ToBattleButton
+  m_Name: UI_ToBattle_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

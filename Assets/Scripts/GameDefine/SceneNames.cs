@@ -1,5 +1,4 @@
-﻿public static class SceneNames
-{
+﻿public static class SceneNames {
     public const string MainSceneName = "Main";
     public const string StartSceneName = "Start";
     public const string UITestSceneName = "UITest";
