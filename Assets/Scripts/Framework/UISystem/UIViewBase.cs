@@ -26,12 +26,36 @@ namespace GameSystem
 
         public virtual void OnHide()
         {
+            _RootUILayerHide();
             _rootUI.SetActive(false);
         }
 
         public virtual void OnShow()
         {
+            _RootUILayerShow();
             _rootUI.SetActive(true);
+        }
+
+        private void _RootUILayerHide()
+        {
+            Canvas canvas = _rootUI.GetComponent<Canvas>();
+            // if can not find canvas, then dont need do anything
+            if (canvas == null) {
+                return;
+            }
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = -1;
+        }
+
+        private void _RootUILayerShow() {
+            Canvas canvas = _rootUI.GetComponent<Canvas>();
+            // if can not find canvas, then add a canvas to rootUI
+            if (canvas == null)
+            {
+                canvas = _rootUI.AddComponent<Canvas>();
+            }
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 100;
         }
 
         public virtual void CustomRelease()

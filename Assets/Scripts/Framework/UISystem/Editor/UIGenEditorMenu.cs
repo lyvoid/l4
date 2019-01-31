@@ -13,7 +13,10 @@ public static class UIGenEditorMenu
     private static HashSet<string> _enabledCompNames = new HashSet<string>{
         "Image", 
         "Text", 
-        "Button" 
+        "Button",
+    };
+    private static HashSet<string> _enabledCusCompNames = new HashSet<string> {
+        "Panel"
     };
 
     [MenuItem("Tools/UI/Generate Code")]
@@ -74,12 +77,12 @@ public class {0}UI : UIBase<{0}View, {0}Controller>
         // travel all elements below panel, generate tmp code
         LinkedList<Transform> UIWidgets = new LinkedList<Transform>();
         UIWidgets.AddLast(_panelTransform);
-        while(UIWidgets.Count > 0) 
+        while (UIWidgets.Count > 0)
         {
             var curTransform = UIWidgets.First.Value;
             UIWidgets.RemoveFirst();
             int childCount = curTransform.childCount;
-            for (int i=0;i<childCount;i++)
+            for (int i = 0; i < childCount; i++)
             {
                 UIWidgets.AddLast(curTransform.GetChild(i));
             }
@@ -88,26 +91,31 @@ public class {0}UI : UIBase<{0}View, {0}Controller>
             if (elemName.StartsWith("UI_", StringComparison.CurrentCulture))
             {
                 string[] splitNames = elemName.Split(new char[] { '_' });
-                if(splitNames.Length < 3) 
+                if (splitNames.Length < 3)
                 {
                     Debug.LogError(string.Format("error format of ui elements {0}, auto pass", elemName));
                     continue;
                 }
                 string compName = splitNames[splitNames.Length - 1];
-                if (!_enabledCompNames.Contains(compName)) 
+                // if component is disabled, skip this ui object
+                if (!_enabledCusCompNames.Contains(compName) && !_enabledCompNames.Contains(compName))
                 {
+
                     Debug.LogError(string.Format(
-                        "can not generate code of component {0} in element {1}, auto pass", 
+                        "can not generate code of component {0} in element {1}, auto pass",
                         compName,
                         elemName
                     ));
                     continue;
                 }
+
+                // if component is enabled
                 string[] varibaleSplitName = new string[splitNames.Length - 2];
-                for(int i = 0; i < varibaleSplitName.Length; i++) {
+                for (int i = 0; i < varibaleSplitName.Length; i++)
+                {
                     varibaleSplitName[i] = splitNames[i + 1];
                 }
-                string variableName ="_" + string.Join("_", varibaleSplitName) + compName;
+                string variableName = "_" + string.Join("_", varibaleSplitName) + compName;
                 widgetsFindSb.Append(string.Format(
                     "\n        {0} = UITool.GetUIComponent<{1}>(_rootUI, \"{2}\");",
                     variableName,
@@ -119,13 +127,27 @@ public class {0}UI : UIBase<{0}View, {0}Controller>
                     compName,
                     variableName
                 ));
-            }
 
+                // for custom component, if there is no component added before, need to auto add this component in code
+                if (_enabledCusCompNames.Contains(compName))
+                {
+                    widgetsFindSb.Append(string.Format(
+                        "\n        if ({0} == null) {{" +
+                        "\n            GameObject {0}GO = UITool.FindUIGameObject(\"{2}\");" +
+                        "\n            {0} = {0}GO.AddComponent<{1}>();" +
+                        "\n        }}",
+                        variableName,
+                        compName,
+                        elemName
+                    ));
+                }
+            }
         }
 
         string content = string.Format(@"using GameSystem;
 using GameTools;
 using UnityEngine.UI;
+using UnityEngine;
 
 public partial class {0}View : UIViewBase<{0}Controller>
 {{{1}

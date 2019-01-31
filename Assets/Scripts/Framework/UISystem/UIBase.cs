@@ -76,12 +76,12 @@ namespace GameSystem
 
         private void BaseRelease()
         {
-            if (_controller != default) 
+            if (_controller.Equals(default))
             {
                 _controller.Release();
                 this._controller = default;
             }
-            if (_view != default)
+            if (_view.Equals(default))
             {
                 _view.Release();
                 this._view = default;
