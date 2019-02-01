@@ -26,28 +26,16 @@ namespace GameSystem
 
         public virtual void OnHide()
         {
-            _RootUILayerHide();
             _rootUI.SetActive(false);
         }
 
         public virtual void OnShow()
         {
-            _RootUILayerShow();
             _rootUI.SetActive(true);
+            _ToTopOrder();
         }
 
-        private void _RootUILayerHide()
-        {
-            Canvas canvas = _rootUI.GetComponent<Canvas>();
-            // if can not find canvas, then dont need do anything
-            if (canvas == null) {
-                return;
-            }
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = -1;
-        }
-
-        private void _RootUILayerShow() {
+        protected void _ToTopOrder() {
             Canvas canvas = _rootUI.GetComponent<Canvas>();
             // if can not find canvas, then add a canvas to rootUI
             if (canvas == null)
@@ -55,7 +43,8 @@ namespace GameSystem
                 canvas = _rootUI.AddComponent<Canvas>();
             }
             canvas.overrideSorting = true;
-            canvas.sortingOrder = 100;
+            canvas.sortingOrder = UISystem.Ins.MaxSortingOrder;
+            _EnableTouch();
         }
 
         public virtual void CustomRelease()
@@ -87,6 +76,26 @@ namespace GameSystem
         void IUIView.SetController(IUIController controller)
         {
             _controller = (T)controller;
+        }
+
+        protected void _DisableTouch()
+        {
+            GraphicRaycaster raycaster = _rootUI.GetComponent<GraphicRaycaster>();
+            // disable raycaster to save performance
+            if (raycaster != null)
+            {
+                raycaster.enabled = false;
+            }
+        }
+
+        protected void _EnableTouch()
+        {
+            GraphicRaycaster raycaster = _rootUI.GetComponent<GraphicRaycaster>();
+            if (raycaster == null)
+            {
+                raycaster = _rootUI.AddComponent<GraphicRaycaster>();
+            }
+            raycaster.enabled = true;
         }
     }
 }

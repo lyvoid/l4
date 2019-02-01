@@ -9,7 +9,7 @@ public class BattleScene : SceneBase
     public override void Initialize()
     {
         BattlePanelUI battleUI =  UISystem.Ins.NewUI<BattlePanelUI>();
-        UISystem.Ins.UIShowInStack(battleUI);
+        UISystem.Ins.ShowUI(battleUI);
     }
 
 }

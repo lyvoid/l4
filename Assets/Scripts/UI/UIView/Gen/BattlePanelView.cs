@@ -6,7 +6,6 @@ using UnityEngine;
 public partial class BattlePanelView : UIViewBase<BattlePanelController>
 {
     private Panel _ButtonsPanel;
-    private Panel _testPanel;
     private Button _FirstButton;
     private Button _SecondButton;
     private Button _ThirdButton;
@@ -18,11 +17,6 @@ public partial class BattlePanelView : UIViewBase<BattlePanelController>
         if (_ButtonsPanel == null) {
             GameObject _ButtonsPanelGO = UITool.FindUIGameObject("UI_Buttons_Panel");
             _ButtonsPanel = _ButtonsPanelGO.AddComponent<Panel>();
-        }
-        _testPanel = UITool.GetUIComponent<Panel>(_rootUI, "UI_test_Panel");
-        if (_testPanel == null) {
-            GameObject _testPanelGO = UITool.FindUIGameObject("UI_test_Panel");
-            _testPanel = _testPanelGO.AddComponent<Panel>();
         }
         _FirstButton = UITool.GetUIComponent<Button>(_rootUI, "UI_First_Button");
         _SecondButton = UITool.GetUIComponent<Button>(_rootUI, "UI_Second_Button");

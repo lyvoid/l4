@@ -18,6 +18,7 @@ namespace GameSystem
             _view.SetRootUI(rootUI);
             _view.SetController(_controller);
             UITool.AddToCanvas(rootUI);
+            rootUI.SetActive(false);
         }
 
         public void Hide()
